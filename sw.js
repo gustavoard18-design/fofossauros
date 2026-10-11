@@ -1,5 +1,5 @@
 // Fofossauros: guarda o jogo no aparelho para abrir sem internet.
-const CACHE = 'fofossauros-v2';
+const CACHE = 'fofossauros-v3';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {

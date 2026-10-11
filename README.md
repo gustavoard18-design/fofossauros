@@ -1,10 +1,10 @@
 # Quebra-Cabeça Fofossauros
 
-Quebra-cabeça infantil com bichinhos de pelúcia e dinossauros. Roda direto no navegador, no celular, no tablet ou no computador, e pode ser instalado como app.
+Quebra-cabeça infantil com bichinhos de pelúcia, dinossauros e Dia das Bruxas. Roda direto no navegador, no celular, no tablet ou no computador, e pode ser instalado como app.
 
 ## O que tem
 
-- 16 desenhos: 8 bichinhos de pelúcia e 8 dinossauros, todos vetoriais (nítidos em qualquer tela).
+- 26 desenhos: 8 bichinhos de pelúcia, 8 dinossauros e 10 de Dia das Bruxas, todos vetoriais (nítidos em qualquer tela).
 - 4 níveis: 4, 9, 16 ou 25 peças.
 - Peças que encaixam sozinhas quando chegam perto do lugar certo.
 - Desenho de fundo como ajuda (liga e desliga), botão de embaralhar e som.
@@ -20,7 +20,9 @@ Escolha quantas peças, toque em um desenho e arraste cada peça até o lugar de
 2. Android (Chrome): menu ⋮ → **Adicionar à tela inicial** / **Instalar app**.
 3. iPhone (Safari): botão Compartilhar → **Adicionar à Tela de Início**.
 
-Depois da primeira abertura o jogo funciona sem internet.
+Instalado, o jogo abre em tela cheia e funciona sem internet depois da primeira abertura.
+
+Sem instalar, no Android o jogo entra em tela cheia ao tocar em um desenho; o botão no canto da tela inicial liga e desliga isso. No iPhone a tela cheia só existe na versão instalada.
 
 ## Rodar no computador
 
