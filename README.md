@@ -5,14 +5,16 @@ Quebra-cabeça infantil com bichinhos de pelúcia, dinossauros e Dia das Bruxas.
 ## O que tem
 
 - 26 desenhos: 8 bichinhos de pelúcia, 8 dinossauros e 10 de Dia das Bruxas, todos vetoriais (nítidos em qualquer tela).
-- 4 níveis: 4, 9, 16 ou 25 peças.
-- Peças que encaixam sozinhas quando chegam perto do lugar certo.
-- Desenho de fundo como ajuda (liga e desliga), botão de embaralhar e som.
-- Progresso salvo no próprio aparelho.
+- 4 níveis: 4, 9, 16 ou 25 peças. Cada nível montado vale uma estrela (104 no total).
+- Peças que encaixam sozinhas quando chegam perto do lugar certo, com um brilho mostrando o lugar.
+- Dica (lâmpada) que mostra onde vai uma peça, desenho de fundo que liga e desliga, e botão de embaralhar.
+- Jogo em andamento salvo sozinho: dá para sair e continuar depois de onde parou.
+- Tempo de cada montagem e melhor tempo por desenho.
+- Sem anúncios, sem compras e sem coleta de dados. Tudo fica salvo só no aparelho.
 
 ## Como jogar
 
-Escolha quantas peças, toque em um desenho e arraste cada peça até o lugar dela.
+Escolha quantas peças, toque em um desenho e arraste cada peça até o lugar dela. Toque na miniatura do desenho, no alto, para ver a imagem inteira ou começar de novo.
 
 ## Instalar no celular
 
