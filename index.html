@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Quebra-cabeça infantil com bichinhos de pelúcia, dinossauros e Dia das Bruxas, de 4 a 25 peças.">
+<meta name="description" content="Quebra-cabeça infantil com bichinhos de pelúcia, dinossauros, Dia das Bruxas e fundo do mar, de 4 a 25 peças.">
 <meta name="theme-color" content="#bfe2ff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,11 +189,11 @@ button{font:inherit;color:inherit;touch-action:manipulation}
           <button class="ib" id="b-fs" type="button" aria-pressed="false" aria-label="Tela cheia" hidden><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
         </div>
       </div>
-      <p>Monte quebra-cabeças de bichinhos de pelúcia, dinossauros e Dia das Bruxas.</p>
+      <p>Monte quebra-cabeças de pelúcias, dinossauros, Dia das Bruxas e fundo do mar.</p>
     </header>
     <div class="score">
       <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4l4.9 10.2 11.1 1.5-8.1 7.8 2 11.1L20 29.3 10.1 34.6l2-11.1L4 15.7l11.1-1.5z" fill="#ffc531" stroke="#dd9a00" stroke-width="2.5" stroke-linejoin="round"/></svg>
-      <span class="txt"><span id="sc-n">0</span> de <span id="sc-t">104</span> estrelas</span>
+      <span class="txt"><span id="sc-n">0</span> de <span id="sc-t">144</span> estrelas</span>
       <div class="meter"><i id="sc-bar" style="width:0"></i></div>
     </div>
     <div class="shelf" id="cont-shelf" hidden>
@@ -208,6 +208,7 @@ button{font:inherit;color:inherit;touch-action:manipulation}
       <button class="chip" type="button" data-go="pelucia">Pelúcias</button>
       <button class="chip" type="button" data-go="dino">Dinossauros</button>
       <button class="chip" type="button" data-go="bruxas">Dia das Bruxas</button>
+      <button class="chip" type="button" data-go="mar">Fundo do Mar</button>
     </nav>
     <div class="shelf" id="shelf-pelucia">
       <h2>Bichinhos de pelúcia</h2>
@@ -220,6 +221,10 @@ button{font:inherit;color:inherit;touch-action:manipulation}
     <div class="shelf" id="shelf-bruxas">
       <h2>Dia das Bruxas</h2>
       <div class="grid five" id="grid-bruxas"></div>
+    </div>
+    <div class="shelf" id="shelf-mar">
+      <h2>Fundo do Mar</h2>
+      <div class="grid five" id="grid-mar"></div>
     </div>
     <p class="note" id="ios-tip" hidden>No iPhone, toque em Compartilhar e depois em “Adicionar à Tela de Início” para jogar em tela cheia.</p>
     <p class="note">Toque em um desenho para começar. Cada nível montado vale uma estrela e acende uma bolinha amarela no cartão.</p>
@@ -1040,6 +1045,223 @@ ${PUMP(300,436,196,134,1)}
 ${CANDY(70,548,-18,'#ff9326','#b3520f',.85)}${CANDY(530,552,16,'#4dc8f0','#1f7fa8',.9)}${CANDY(150,578,10,'#b48cff','#5a35b8',.6)}${corn(470,572,70,.8)}`;
 }
 
+/* ---------- Fundo do Mar ---------- */
+const BUBS=(seed,n,maxY=600)=>{const r=rngOf(seed);let s='';for(let i=0;i<n;i++)s+=`<circle cx="${f1(r()*600)}" cy="${f1(r()*maxY)}" r="${f1(4+r()*9)}" fill="#fff" fill-opacity=".16" stroke="#fff" stroke-opacity=".7" stroke-width="2.5"/>`;return s};
+const RAYS=(o=.13)=>`<g fill="#fff" opacity="${o}"><path d="M60 0L150 0L40 600L-80 600Z"/><path d="M260 0L330 0L300 600L200 600Z"/><path d="M450 0L560 0L640 600L520 600Z"/></g>`;
+const WEED=(x,h,c,w=14)=>{let d=`M${x} 600`;for(let y=0,i=0;y<h;y+=40,i++)d+=`q${i%2?-24:24} -20 0 -40`;return `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`};
+const CORAL=(x,y,c,s=1)=>`<g transform="translate(${x} ${y}) scale(${s})" fill="none" stroke="${c}" stroke-width="14" stroke-linecap="round"><path d="M0 0V-64M0 -30q-30 -6 -34 -42M0 -40q28 -8 30 -46M-34 -72q-14 -4 -16 -22M30 -86q14 -4 16 -20"/></g>`;
+const SAND=(y,a='#f6dc93',b='#e9c877')=>`<path d="M0 ${y}Q150 ${y-30} 300 ${y-5}T600 ${y-15}V600H0Z" fill="${a}"/><path d="M0 ${y+52}Q300 ${y+32} 600 ${y+52}V600H0Z" fill="${b}"/>`;
+const SHELL=(x,y,s,c='#ffb3c9',d='#e07a9c')=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0C-30 -6 -40 -34 -24 -52C-14 -62 14 -62 24 -52C40 -34 30 -6 0 0Z" fill="${c}" stroke="${d}" stroke-width="4" stroke-linejoin="round"/><path d="M0 -2L-18 -48M0 -2L0 -56M0 -2L18 -48" stroke="${d}" stroke-width="3.5" stroke-linecap="round"/></g>`;
+const MIR=s=>`${s}<g transform="translate(600 0) scale(-1 1)">${s}</g>`;
+
+function polvo(){
+  const t=['M205 345C125 380 62 362 60 420C60 462 112 462 110 430','M245 365C200 445 122 440 130 500C136 542 188 532 176 500','M285 375C282 452 240 480 260 530C276 566 322 548 304 518'];
+  const draw=(w,c)=>t.map(d=>`<path d="${d}" stroke="${c}" stroke-width="${w}"/>`).join('');
+  const arms=`<g fill="none" stroke-linecap="round">${draw(46,'#6a2fb0')}${draw(36,'#c77dff')}</g><g fill="#f3d6ff"><circle cx="150" cy="372" r="7"/><circle cx="112" cy="378" r="7"/><circle cx="76" cy="396" r="6"/><circle cx="196" cy="430" r="7"/><circle cx="160" cy="458" r="7"/><circle cx="138" cy="490" r="6"/><circle cx="276" cy="440" r="7"/><circle cx="260" cy="480" r="7"/><circle cx="264" cy="520" r="6"/></g>`;
+  return `<defs>${LG('s','#35c3d6','#1565b8')}${RG('f','#f8caff','#c77dff','#9245da')}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS()}${BUBS(101,18,470)}
+${FISH(90,110,'#ffd84d',.8)}${FISH(520,160,'#ff7da5',.7)}${FISH(470,70,'#a8e86a',.5)}
+${SAND(520)}
+${WEED(40,210,'#2fbf71')}${WEED(566,240,'#27a35f')}${WEED(78,120,'#27a35f',10)}
+${CORAL(118,572,'#ff7da5',1)}${CORAL(500,578,'#ffa94d',.9)}
+${SHELL(430,584,.6)}${STAR(180,578,15,'#ffa94d',12)}
+${SHADOW(300,566,180,16)}
+${MIR(arms)}
+<ellipse cx="300" cy="250" rx="152" ry="138" fill="url(#f)" stroke="#6a2fb0" stroke-width="5"/>
+<g fill="#e9b5ff" opacity=".75"><circle cx="230" cy="160" r="16"/><circle cx="270" cy="135" r="9"/><circle cx="372" cy="150" r="13"/><circle cx="340" cy="128" r="7"/><circle cx="196" cy="200" r="8"/></g>
+${EYE(248,262,25)}${EYE(352,262,25)}${CHEEK(204,314,22)}${CHEEK(396,314,22)}
+<path d="M268 314Q300 348 332 314" fill="none" stroke="#6a2fb0" stroke-width="5.5" stroke-linecap="round"/>`;
+}
+
+function caranguejo(){
+  const legs='M185 440L122 474L102 524M176 410L102 428L72 476M196 466L150 512L140 556';
+  const side=`<g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="${legs}" stroke="#9c2417" stroke-width="22"/><path d="${legs}" stroke="#f25c4a" stroke-width="13"/><path d="M196 380C152 360 140 326 142 292" stroke="#9c2417" stroke-width="36"/><path d="M196 380C152 360 140 326 142 292" stroke="#f25c4a" stroke-width="26"/></g>
+<g transform="translate(134 250)" stroke="#9c2417" stroke-width="5" fill="url(#f)"><ellipse cx="18" cy="14" rx="42" ry="21" transform="rotate(-12 18 14)"/><ellipse cx="-4" cy="-20" rx="54" ry="32" transform="rotate(-42 -4 -20)"/></g>`;
+  let dots='';const r=rngOf(9);for(let i=0;i<26;i++)dots+=`<circle cx="${f1(r()*600)}" cy="${f1(420+r()*170)}" r="${f1(2+r()*2.5)}" fill="#e0bd6a" opacity=".7"/>`;
+  return `<defs>${LG('s','#52d3e8','#c2f5ee')}${RG('f','#ffad9e','#f25c4a','#c23323')}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.2)}${BUBS(7,14,340)}
+${FISH(100,120,'#ffd84d',.8)}${FISH(480,80,'#b48cff',.7)}${FISH(540,200,'#ff7da5',.55)}
+${WEED(30,250,'#2fbf71')}${WEED(575,230,'#27a35f')}
+<path d="M0 396Q300 356 600 396V600H0Z" fill="#fbe7a8"/><path d="M0 506Q300 476 600 506V600H0Z" fill="#f2d283"/>${dots}
+${SHELL(84,476,.8)}${SHELL(528,572,.7,'#c9b8ff','#7c5fd0')}${STAR(508,446,18,'#ff8a5c',10)}${CORAL(40,470,'#ff7da5',.6)}
+${SHADOW(300,516,200,18)}
+${MIR(side)}
+<ellipse cx="300" cy="418" rx="152" ry="98" fill="url(#f)" stroke="#9c2417" stroke-width="5"/>
+<g fill="#ffc2b8" opacity=".6"><circle cx="212" cy="372" r="12"/><circle cx="246" cy="350" r="7"/><circle cx="392" cy="368" r="11"/><circle cx="360" cy="348" r="6"/></g>
+<path d="M196 456Q300 510 404 456" fill="none" stroke="#ffc2b8" stroke-width="6" stroke-linecap="round" opacity=".7"/>
+<path d="M262 340V266M338 340V266" stroke="#9c2417" stroke-width="24" stroke-linecap="round"/><path d="M262 340V266M338 340V266" stroke="#f25c4a" stroke-width="14" stroke-linecap="round"/>
+<circle cx="262" cy="244" r="31" fill="#fff" stroke="#9c2417" stroke-width="4.5"/><circle cx="338" cy="244" r="31" fill="#fff" stroke="#9c2417" stroke-width="4.5"/>${EYE(265,247,18)}${EYE(335,247,18)}
+${CHEEK(212,424,20,'#ffd9d2',.8)}${CHEEK(388,424,20,'#ffd9d2',.8)}
+<path d="M260 424Q300 470 340 424Z" fill="#7a1f2e" stroke="#9c2417" stroke-width="4" stroke-linejoin="round"/><path d="M280 446Q300 460 320 446Q300 436 280 446Z" fill="#ff8fa3"/>`;
+}
+
+function estrela(){
+  let pts='';for(let i=0;i<10;i++){const a=Math.PI/5*i-Math.PI/2,q=i%2?92:185;pts+=`${f1(300+q*Math.cos(a))},${f1(308+q*Math.sin(a))} `}
+  let dots='';for(let i=0;i<5;i++){const a=Math.PI*2/5*i-Math.PI/2;[[176,7,0],[150,10,.1],[122,7,-.1]].forEach(([q,r,o])=>{dots+=`<circle cx="${f1(300+q*Math.cos(a+o))}" cy="${f1(308+q*Math.sin(a+o))}" r="${r}"/>`})}
+  return `<defs>${LG('s','#3fd0c9','#1b86c4')}${UG('f','#ffc7a3','#ff8a5c','#e2582a',110,520)}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.15)}${BUBS(44,16,520)}
+${FISH(86,96,'#ffd84d',.8)}${FISH(520,120,'#b48cff',.7)}${FISH(60,300,'#ff7da5',.55)}
+${WEED(36,260,'#2fbf71')}${WEED(570,280,'#27a35f')}${WEED(540,170,'#2fbf71',10)}
+${SAND(540)}
+<g fill="#8176b8"><ellipse cx="300" cy="566" rx="270" ry="84"/><ellipse cx="120" cy="560" rx="110" ry="60"/><ellipse cx="490" cy="566" rx="120" ry="56"/></g>
+<g fill="#958bc9"><ellipse cx="300" cy="528" rx="200" ry="38"/></g>
+${CORAL(70,520,'#ff7da5',1)}${CORAL(540,530,'#ffa94d',1)}${CORAL(130,560,'#4dd4ac',.7)}${CORAL(470,566,'#c77dff',.8)}
+${SHELL(420,592,.55)}
+<polygon points="${pts}" fill="#b24a1c" stroke="#b24a1c" stroke-width="58" stroke-linejoin="round"/>
+<polygon points="${pts}" fill="url(#f)" stroke="url(#f)" stroke-width="47" stroke-linejoin="round"/>
+<g fill="#ffd9c2" opacity=".85">${dots}</g>
+${EYE(266,296,20)}${EYE(334,296,20)}${CHEEK(232,338,20,'#ffd0dc',.8)}${CHEEK(368,338,20,'#ffd0dc',.8)}
+<path d="M270 332Q300 372 330 332Z" fill="#7a1f2e" stroke="#b24a1c" stroke-width="4" stroke-linejoin="round"/><path d="M284 352Q300 364 316 352Q300 344 284 352Z" fill="#ff8fa3"/>`;
+}
+
+function aguaviva(){
+  const tent=(x,y,len,c,w=10)=>{let d=`M${x} ${y}`;for(let k=0,i=0;k<len;k+=40,i++)d+=`q${i%2?-18:18} 20 0 40`;return `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`};
+  const jelly=(x,y,s,id,b,c,st,face)=>`<g transform="translate(${x} ${y}) scale(${s})"><circle cx="0" cy="-10" r="210" fill="${b}" opacity=".13"/>${tent(-100,22,face?240:200,b)}${tent(-50,26,face?320:240,c)}${tent(0,26,face?260:220,b)}${tent(50,26,face?320:240,c)}${tent(100,22,face?240:200,b)}<path d="M-150 20C-150 -124 150 -124 150 20Q125 52 100 20Q75 52 50 20Q25 52 0 20Q-25 52 -50 20Q-75 52 -100 20Q-125 52 -150 20Z" fill="url(#${id})" stroke="${st}" stroke-width="6" stroke-linejoin="round"/><ellipse cx="-62" cy="-52" rx="36" ry="18" fill="#fff" opacity=".5" transform="rotate(-32 -62 -52)"/>${face?EYE(-40,-24,18)+EYE(40,-24,18)+CHEEK(-82,8,19)+CHEEK(82,8,19)+`<path d="M-24 6Q0 30 24 6" fill="none" stroke="${st}" stroke-width="5.5" stroke-linecap="round"/>`:''}</g>`;
+  return `<defs>${LG('s','#3b2fa6','#12164f')}${RG('j1','#ffe0f5','#ff9ad5','#dc5cab')}${RG('j2','#ece2ff','#b79cff','#8463e2')}${RG('j3','#d9fff6','#7fe6d2','#3db8a6')}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.07)}${STARS(63,46,600)}${BUBS(12,10,560)}
+<path d="M0 560Q80 520 150 548T300 540T460 552T600 530V600H0Z" fill="#0d1040"/>
+<g fill="none" stroke="#0d1040" stroke-width="14" stroke-linecap="round"><path d="M60 560V500M60 530q-24 -6 -28 -34M60 524q22 -6 24 -36M540 548V480M540 512q-24 -6 -28 -34M540 506q24 -8 26 -40"/></g>
+${jelly(108,150,.36,'j2','#b79cff','#d9c9ff','#5a3fc0',0)}${jelly(500,400,.42,'j3','#7fe6d2','#baf5ea','#22887a',0)}${jelly(92,452,.28,'j1','#ff9ad5','#ffc9ea','#b83d8c',0)}${jelly(516,110,.24,'j2','#b79cff','#d9c9ff','#5a3fc0',0)}
+${jelly(300,236,1,'j1','#ff9ad5','#ffc9ea','#b83d8c',1)}`;
+}
+
+function tartaruga(){
+  return `<defs>${LG('s','#6fe0d0','#1d7fc9')}${RG('sh','#bdf090','#5cb85f','#2c8443')}${RG('sk','#ecfaa8','#b4e060','#82bc40')}</defs>
+<rect width="600" height="600" fill="url(#s)"/>
+<path d="M0 0H600V34Q525 66 450 34T300 34T150 34T0 34Z" fill="#fff" opacity=".28"/>${RAYS(.16)}${BUBS(23,14,520)}
+${FISH(110,110,'#ffd84d',.6)}${FISH(160,150,'#ffd84d',.5)}${FISH(70,170,'#ffd84d',.45)}
+${SAND(548)}
+${WEED(50,320,'#1f9d64',18)}${WEED(92,220,'#2fbf71')}${WEED(552,340,'#1f9d64',18)}${WEED(508,200,'#2fbf71')}
+${CORAL(180,590,'#ff7da5',.6)}${SHELL(400,592,.5)}
+<g transform="rotate(-8 300 320)" stroke="#3f8a2a" stroke-width="5" stroke-linejoin="round">
+<path d="M150 326L100 338L150 358Z" fill="url(#sk)"/>
+<path d="M176 380C122 400 100 442 110 476C152 466 194 434 208 402Z" fill="url(#sk)"/>
+<path d="M360 244C380 170 440 128 504 122C484 170 444 222 412 266Z" fill="url(#sk)"/>
+<ellipse cx="430" cy="300" rx="52" ry="40" fill="url(#sk)"/>
+<ellipse cx="290" cy="320" rx="162" ry="120" fill="url(#sh)" stroke="#2a6e32" stroke-width="6"/>
+<g fill="none" stroke="#2a6e32" stroke-width="4.5" stroke-linecap="round"><ellipse cx="290" cy="320" rx="134" ry="94" opacity=".7"/><path d="M250 290L290 262L330 290V340L290 368L250 340Z"/><path d="M250 290L178 262M290 262V204M330 290L402 258M330 340L406 370M290 368V436M250 340L176 374"/></g>
+<ellipse cx="238" cy="262" rx="30" ry="14" fill="#fff" opacity=".35" stroke="none" transform="rotate(-28 238 262)"/>
+<path d="M372 404C402 474 472 504 534 494C504 452 462 412 422 382Z" fill="url(#sk)"/>
+<circle cx="480" cy="288" r="66" fill="url(#sk)"/>
+</g>
+<g fill="#82bc40" opacity=".7"><circle cx="452" cy="172" r="7"/><circle cx="430" cy="196" r="5"/><circle cx="484" cy="422" r="7"/><circle cx="458" cy="404" r="5"/><circle cx="470" cy="222" r="6"/></g>
+${EYE(508,252,17)}${CHEEK(484,296,17)}
+<path d="M512 292Q530 300 544 284" fill="none" stroke="#3f8a2a" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="548" cy="254" rx="3" ry="4.5" fill="#3f8a2a"/>
+<path d="M492 228q14 -12 30 -6" fill="none" stroke="#3f8a2a" stroke-width="4" stroke-linecap="round"/>`;
+}
+
+function baleia(){
+  const shapes=`<path d="M490 280C520 286 540 280 556 262L572 290C552 318 520 342 492 352Z"/><path d="M560 272C548 232 556 190 590 168C600 206 596 246 574 280Z"/><path d="M566 278C590 282 604 310 600 350C572 344 556 318 552 292Z"/><path d="M70 320C70 215 200 165 330 175C450 184 520 250 520 320C520 400 420 462 280 460C150 458 70 400 70 320Z"/>`;
+  return `<defs>${LG('s','#86e6f4','#2577d2')}${UG('f','#a8dcff','#4a9ff0','#2466cc',170,470)}</defs>
+<rect width="600" height="600" fill="url(#s)"/>
+<path d="M0 0H600V30Q525 62 450 30T300 30T150 30T0 30Z" fill="#fff" opacity=".3"/>${RAYS(.16)}${BUBS(71,12,560)}
+${FISH(470,90,'#ffd84d',.55)}${FISH(520,120,'#ffd84d',.5)}${FISH(440,130,'#ffd84d',.45)}${FISH(540,70,'#ffa94d',.45)}
+<path d="M0 548Q110 500 220 536T420 530T600 510V600H0Z" fill="#1c5fb5"/><path d="M0 580Q300 556 600 580V600H0Z" fill="#164f9c"/>
+${WEED(40,160,'#1f9d84')}${WEED(566,180,'#1f9d84')}${CORAL(110,590,'#ff7da5',.6)}${CORAL(480,588,'#ffa94d',.6)}
+<g fill="#fff" fill-opacity=".25" stroke="#fff" stroke-width="3"><circle cx="250" cy="140" r="9"/><circle cx="268" cy="104" r="13"/><circle cx="244" cy="70" r="7"/><circle cx="280" cy="52" r="5"/></g>
+${SIL(shapes,'url(#f)','#1f4f9e',8)}
+<path d="M88 372C170 442 330 458 470 404C400 464 180 476 88 372Z" fill="#e3f4ff"/>
+<path d="M150 418Q270 452 400 428M196 440Q280 458 360 446" fill="none" stroke="#a8cdee" stroke-width="4" stroke-linecap="round"/>
+<path d="M285 425C270 487 312 522 358 514C336 482 336 452 336 430Z" fill="#3d8fe0" stroke="#1f4f9e" stroke-width="5" stroke-linejoin="round"/>
+<ellipse cx="252" cy="182" rx="12" ry="5" fill="#1f4f9e"/>
+<ellipse cx="230" cy="230" rx="46" ry="20" fill="#fff" opacity=".28" transform="rotate(-14 230 230)"/>
+${EYE(172,318,17)}${CHEEK(214,352,18)}
+<path d="M96 350Q150 392 222 370" fill="none" stroke="#1f4f9e" stroke-width="5" stroke-linecap="round"/>
+<path d="M150 292q16 -12 34 -5" fill="none" stroke="#1f4f9e" stroke-width="4" stroke-linecap="round"/>`;
+}
+
+function peixinho(){
+  let an='';for(let i=0;i<9;i++){const a=Math.PI*(1.12+i*.095);an+=`<path d="M112 590Q${f1(112+50*Math.cos(a))} ${f1(560+50*Math.sin(a))} ${f1(112+96*Math.cos(a))} ${f1(590+96*Math.sin(a))}"/>`}
+  return `<defs>${LG('s','#42d3d0','#1b72c9')}${RG('f','#a3d2ff','#3f86f0','#2152c4')}<clipPath id="bd"><ellipse cx="290" cy="290" rx="155" ry="105"/></clipPath></defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.15)}${BUBS(88,16,500)}
+${FISH(486,120,'#ff7da5',.9)}${FISH(530,436,'#ffd84d',.7)}${FISH(92,104,'#a8e86a',.7)}${FISH(70,430,'#ffa94d',.5)}
+${SAND(530)}
+${WEED(560,260,'#2fbf71')}${WEED(40,200,'#27a35f')}${WEED(524,150,'#27a35f',10)}
+<g fill="none" stroke="#ff7da5" stroke-width="13" stroke-linecap="round">${an}</g><ellipse cx="112" cy="590" rx="46" ry="16" fill="#d94f86"/>
+${CORAL(300,590,'#ffa94d',.9)}${CORAL(440,584,'#c77dff',1)}${CORAL(220,592,'#4dd4ac',.6)}${STAR(372,584,14,'#ff8a5c',10)}
+<g stroke="#b9621a" stroke-width="5" stroke-linejoin="round" fill="#ffa94d">
+<path d="M152 290C102 232 72 222 50 202C60 262 60 318 50 380C72 360 102 350 152 290Z"/>
+<path d="M218 206C238 140 320 118 382 150C362 170 352 190 352 212Z"/>
+<path d="M250 380C260 432 312 442 342 420C332 400 332 386 332 376Z"/></g>
+<path d="M76 240L120 282M70 290H124M76 344L120 300M250 180L262 206M290 156L296 200M330 150L326 198" stroke="#b9621a" stroke-width="3.5" stroke-linecap="round" opacity=".7"/>
+<ellipse cx="290" cy="290" rx="155" ry="105" fill="url(#f)"/>
+<g clip-path="url(#bd)"><rect x="196" y="170" width="36" height="240" fill="#ffd84d"/><rect x="278" y="170" width="36" height="240" fill="#ffd84d"/><ellipse cx="250" cy="222" rx="60" ry="22" fill="#fff" opacity=".25" transform="rotate(-18 250 222)"/></g>
+<ellipse cx="290" cy="290" rx="155" ry="105" fill="none" stroke="#1b3f9a" stroke-width="5"/>
+<path d="M292 312C262 332 250 362 262 384C292 376 314 352 320 324Z" fill="#ffa94d" stroke="#b9621a" stroke-width="5" stroke-linejoin="round"/>
+<circle cx="382" cy="268" r="31" fill="#fff" stroke="#1b3f9a" stroke-width="4"/>${EYE(387,271,19)}
+${CHEEK(392,326,19)}
+<path d="M416 318Q434 328 446 310" fill="none" stroke="#1b3f9a" stroke-width="5" stroke-linecap="round"/>`;
+}
+
+function cavalomarinho(){
+  const tail='M332 396C334 450 300 470 300 506C300 548 352 550 354 512C355 494 336 488 328 500';
+  const torso='M302 252C352 282 362 342 336 398';
+  return `<defs>${LG('s','#5ad0e6','#2456c0')}${RG('f','#fff6b0','#ffe066','#f2b424')}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.14)}${BUBS(55,16,540)}
+${FISH(90,100,'#ff7da5',.7)}${FISH(510,90,'#a8e86a',.6)}${FISH(520,330,'#ffa94d',.5)}
+${WEED(30,420,'#1f9d64',18)}${WEED(74,300,'#2fbf71')}${WEED(120,180,'#27a35f',10)}${WEED(572,440,'#1f9d64',18)}${WEED(530,300,'#2fbf71')}${WEED(486,170,'#27a35f',10)}
+${SAND(540)}
+${SHELL(200,592,.6)}${STAR(430,580,15,'#ff8a5c',10)}${CORAL(250,596,'#ff7da5',.5)}
+<g fill="none" stroke-linecap="round"><path d="${tail}" stroke="#c98a12" stroke-width="42"/><path d="${tail}" stroke="#ffd84d" stroke-width="32"/></g>
+<path d="M370 286C422 276 444 318 432 362C412 350 392 350 374 358Z" fill="#ffa94d" stroke="#c9760f" stroke-width="5" stroke-linejoin="round"/>
+<path d="M378 300L420 300M378 320L428 326M378 340L422 348" stroke="#c9760f" stroke-width="3.5" stroke-linecap="round" opacity=".7"/>
+<g fill="none" stroke-linecap="round"><path d="${torso}" stroke="#c98a12" stroke-width="106"/><path d="${torso}" stroke="#ffe066" stroke-width="96"/><path d="M286 272C326 296 334 342 316 388" stroke="#fff6c2" stroke-width="50"/></g>
+<path d="M268 296h44M276 322h46M280 348h44M280 374h38" stroke="#f2c84a" stroke-width="4" stroke-linecap="round"/>
+<g fill="#ffa94d" opacity=".8"><circle cx="362" cy="270" r="7"/><circle cx="374" cy="380" r="6"/><circle cx="350" cy="420" r="5"/></g>
+<path d="M258 130L268 96L284 122L300 88L314 122L332 98L336 136Z" fill="#ffa94d" stroke="#c9760f" stroke-width="5" stroke-linejoin="round"/>
+<path d="M236 190L150 204C138 206 138 234 150 236L240 234Z" fill="url(#f)" stroke="#c98a12" stroke-width="5" stroke-linejoin="round"/>
+<ellipse cx="148" cy="220" rx="8" ry="15" fill="#ffa94d" stroke="#c98a12" stroke-width="4"/>
+<circle cx="292" cy="192" r="74" fill="url(#f)" stroke="#c98a12" stroke-width="5"/>
+<path d="M236 192L226 234" stroke="#ffe066" stroke-width="8"/>
+${EYE(268,184,20)}${CHEEK(302,228,19)}
+<path d="M222 244Q238 256 252 246" fill="none" stroke="#c98a12" stroke-width="4.5" stroke-linecap="round"/>
+<path d="M250 152q16 -12 34 -6" fill="none" stroke="#c98a12" stroke-width="4" stroke-linecap="round"/>`;
+}
+
+function tubarao(){
+  const Q=t=>[(1-t)*(1-t)*110+2*t*(1-t)*186+t*t*268,(1-t)*(1-t)*342+2*t*(1-t)*368+t*t*356];let teeth='';
+  [.14,.3,.46,.62,.78].forEach(t=>{const a=Q(t-.06),b=Q(t+.06),m=Q(t);teeth+=`<path d="M${f1(a[0])} ${f1(a[1])}L${f1(m[0])} ${f1(m[1]+15)}L${f1(b[0])} ${f1(b[1])}Z"/>`});
+  const shapes=`<path d="M510 300L592 214C582 276 582 330 596 392L514 322Z"/><path d="M280 220C300 152 350 122 384 114C372 160 382 202 404 236Z"/><path d="M70 310C120 220 300 190 430 240C480 258 520 280 540 304C520 334 470 380 400 400C280 430 130 400 70 310Z"/>`;
+  return `<defs>${LG('s','#2f93e2','#102f80')}${UG('f','#d2dff2','#8aa6d4','#5674ae',180,430)}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.1)}${BUBS(33,16,540)}
+<g fill="#16408f" opacity=".85"><path d="M360 520L390 420H560L596 470V540H380Z"/><rect x="454" y="300" width="12" height="130"/><path d="M466 306L540 340L466 372Z"/><rect x="416" y="352" width="10" height="72"/><circle cx="430" cy="470" r="14" fill="#2f6fc0"/><circle cx="490" cy="470" r="14" fill="#2f6fc0"/><circle cx="548" cy="474" r="12" fill="#2f6fc0"/></g>
+<path d="M0 540Q150 508 300 530T600 516V600H0Z" fill="#3d5f9e"/><path d="M0 580Q300 560 600 580V600H0Z" fill="#324f88"/>
+${WEED(40,200,'#1f9d84')}${WEED(80,120,'#27a39a',10)}${WEED(566,160,'#1f9d84')}${CORAL(180,590,'#ff7da5',.6)}${CORAL(300,596,'#ffa94d',.5)}
+${FISH(110,110,'#ffd84d',.8)}${FISH(70,180,'#ff7da5',.6)}${FISH(500,150,'#a8e86a',.6)}
+${SIL(shapes,'url(#f)','#34497a',8)}
+<path d="M78 320C150 348 300 362 444 340C424 380 404 396 400 400C280 430 130 400 78 320Z" fill="#f4f8ff"/>
+<path d="M300 394C288 454 328 488 374 478C352 448 352 416 352 396Z" fill="#7f9ccc" stroke="#34497a" stroke-width="5" stroke-linejoin="round"/>
+<path d="M318 286q-10 22 0 44M342 286q-10 22 0 44M366 288q-10 20 0 40" fill="none" stroke="#5674ae" stroke-width="4.5" stroke-linecap="round"/>
+<ellipse cx="240" cy="246" rx="50" ry="16" fill="#fff" opacity=".3" transform="rotate(-10 240 246)"/>
+<path d="M110 342Q186 404 268 356Q186 368 110 342Z" fill="#7a1f2e" stroke="#34497a" stroke-width="4" stroke-linejoin="round"/>
+<g fill="#fff" stroke="#34497a" stroke-width="2" stroke-linejoin="round">${teeth}</g>
+${EYE(196,290,18)}${CHEEK(246,326,18)}
+<path d="M172 262q18 -12 38 -4" fill="none" stroke="#34497a" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="96" cy="306" rx="3" ry="4.5" fill="#34497a"/>`;
+}
+
+function submarino(){
+  const port=x=>`<circle cx="${x}" cy="298" r="38" fill="#9aa1b3" stroke="#5d6478" stroke-width="5"/><circle cx="${x}" cy="298" r="27" fill="#aee6ff" stroke="#5d6478" stroke-width="4"/><path d="M${x-16} ${290}q6 -14 20 -16" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/>`;
+  let riv='';for(let x=170;x<=450;x+=40)riv+=`<circle cx="${x}" cy="238" r="5"/>`;
+  return `<defs>${LG('s','#2fb4e6','#123a96')}${RG('f','#fff5ab','#ffd23d','#eea51a')}</defs>
+<rect width="600" height="600" fill="url(#s)"/>${RAYS(.12)}${BUBS(19,14,560)}
+${FISH(90,110,'#ff7da5',.8)}${FISH(130,470,'#a8e86a',.6)}${FISH(520,120,'#ffa94d',.6)}
+${SAND(544)}
+${WEED(36,220,'#2fbf71')}${WEED(572,200,'#27a35f')}${CORAL(120,592,'#ff7da5',.7)}${STAR(250,584,14,'#ff8a5c',10)}
+<g stroke="#5e3b18" stroke-width="5" stroke-linejoin="round"><rect x="430" y="524" width="96" height="54" rx="6" fill="#a8703a"/><path d="M430 528C430 494 526 494 526 528Z" fill="#c08a4c"/><rect x="468" y="516" width="20" height="24" rx="4" fill="#ffd84d" stroke="#c9860f"/></g>
+<g fill="#ffd84d" stroke="#c9860f" stroke-width="3"><circle cx="548" cy="572" r="10"/><circle cx="406" cy="578" r="9"/><circle cx="566" cy="590" r="8"/></g>
+<path d="M498 314L640 232V436L498 348Z" fill="#fff6a8" opacity=".32"/>
+<g fill="#fff" fill-opacity=".25" stroke="#fff" stroke-width="3"><circle cx="56" cy="300" r="10"/><circle cx="30" cy="266" r="7"/><circle cx="46" cy="350" r="6"/></g>
+<g stroke="#5d6478" stroke-width="5"><ellipse cx="96" cy="282" rx="14" ry="38" fill="#c2c6d2" transform="rotate(14 96 282)"/><ellipse cx="96" cy="362" rx="14" ry="38" fill="#c2c6d2" transform="rotate(-14 96 362)"/><rect x="90" y="304" width="34" height="36" rx="8" fill="#9aa1b3"/></g>
+<path d="M300 184V124H344" fill="none" stroke="#5d6478" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><path d="M300 184V124H344" fill="none" stroke="#9aa1b3" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="350" cy="124" r="9" fill="#aee6ff" stroke="#5d6478" stroke-width="4"/>
+<rect x="252" y="176" width="100" height="84" rx="24" fill="url(#f)" stroke="#b9791a" stroke-width="6"/>
+<rect x="112" y="220" width="390" height="200" rx="100" fill="url(#f)" stroke="#b9791a" stroke-width="6"/>
+<path d="M124 356H490" stroke="#ff5d6c" stroke-width="22" stroke-linecap="round"/><path d="M124 356H490" stroke="#fff" stroke-width="4" stroke-dasharray="2 26" stroke-linecap="round" opacity=".7"/>
+<ellipse cx="230" cy="244" rx="80" ry="12" fill="#fff" opacity=".4"/>
+<g fill="#c9860f" opacity=".7">${riv}</g>
+${port(212)}${port(306)}${port(400)}
+<circle cx="486" cy="330" r="17" fill="#fff6a8" stroke="#b9791a" stroke-width="5"/>`;
+}
+
 const ARTS=[
   {id:'urso',name:'Ursinho',art:'o',group:'pelucia',body:urso()},
   {id:'coelha',name:'Coelhinha',art:'a',group:'pelucia',body:coelha()},
@@ -1067,6 +1289,16 @@ const ARTS=[
   {id:'espantalho',name:'Espantalho',art:'o',group:'bruxas',body:espantalho()},
   {id:'morcego',name:'Morceguinho',art:'o',group:'bruxas',body:morcego()},
   {id:'doces',name:'Cesta de Doces',art:'a',group:'bruxas',body:doces()},
+  {id:'polvo',name:'Polvo',art:'o',group:'mar',body:polvo()},
+  {id:'caranguejo',name:'Caranguejo',art:'o',group:'mar',body:caranguejo()},
+  {id:'estrela',name:'Estrela-do-Mar',art:'a',group:'mar',body:estrela()},
+  {id:'aguaviva',name:'Água-Viva',art:'a',group:'mar',body:aguaviva()},
+  {id:'tartaruga',name:'Tartaruga',art:'a',group:'mar',body:tartaruga()},
+  {id:'baleia',name:'Baleia',art:'a',group:'mar',body:baleia()},
+  {id:'peixinho',name:'Peixinho',art:'o',group:'mar',body:peixinho()},
+  {id:'cavalomarinho',name:'Cavalo-Marinho',art:'o',group:'mar',body:cavalomarinho()},
+  {id:'tubarao',name:'Tubarãozinho',art:'o',group:'mar',body:tubarao()},
+  {id:'submarino',name:'Submarino',art:'o',group:'mar',body:submarino()},
 ];
 const svgDoc=(body,px)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${px}" height="${px}" viewBox="0 0 600 600">${body}</svg>`;
 const svgURI=(body,px)=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgDoc(body,px));
@@ -1082,7 +1314,7 @@ const $=s=>document.querySelector(s);
 const KEY='fofossauros.v1';
 const LEVELS=[[2,'Fácil'],[3,'Médio'],[4,'Difícil'],[5,'Mestre']];
 const NS=LEVELS.map(l=>l[0]);
-const GROUPS=['pelucia','dino','bruxas'];
+const GROUPS=['pelucia','dino','bruxas','mar'];
 const save={n:3,sound:true,hint:true,done:{},cur:{},best:{}};
 try{const v=JSON.parse(localStorage.getItem(KEY));if(v&&typeof v==='object')Object.assign(save,v)}catch(e){}
 if(!NS.includes(save.n))save.n=3;
