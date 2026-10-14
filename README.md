@@ -4,8 +4,8 @@ Quebra-cabeça infantil com bichinhos de pelúcia, dinossauros, Dia das Bruxas e
 
 ## O que tem
 
-- 36 desenhos: 8 bichinhos de pelúcia, 8 dinossauros, 10 de Dia das Bruxas e 10 do fundo do mar, todos vetoriais (nítidos em qualquer tela).
-- 4 níveis: 4, 9, 16 ou 25 peças. Cada nível montado vale uma estrela (144 no total).
+- 46 desenhos: 8 bichinhos de pelúcia, 8 dinossauros, 10 de Dia das Bruxas, 10 do fundo do mar e 10 do Cantinho Fofo (traço grosso, estilo livro de colorir), todos vetoriais (nítidos em qualquer tela).
+- 4 níveis: 4, 9, 16 ou 25 peças. Cada nível montado vale uma estrela (184 no total).
 - Peças que encaixam sozinhas quando chegam perto do lugar certo, com um brilho mostrando o lugar.
 - Dica (lâmpada) que mostra onde vai uma peça, desenho de fundo que liga e desliga, e botão de embaralhar.
 - Jogo em andamento salvo sozinho: dá para sair e continuar depois de onde parou.
